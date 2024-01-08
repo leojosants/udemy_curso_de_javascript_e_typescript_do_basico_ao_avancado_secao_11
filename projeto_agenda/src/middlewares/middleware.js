@@ -6,9 +6,10 @@ exports.middlewareGlobal = (request, response, next) => {
 };
 
 exports.checkCSRFerror = (error, request, response, next) => {
-    if (error && error.code === 'EBADCSRFTOKEN') {
+    if (error) {
         return response.render('page404');
     }
+    next();
 };
 
 exports.csrfMiddleware = (request, response, next) => { 
