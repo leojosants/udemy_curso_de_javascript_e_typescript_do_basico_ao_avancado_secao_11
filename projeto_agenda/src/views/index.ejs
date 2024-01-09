@@ -1,5 +1,5 @@
-<%- include('includes/head'); %> 
-<%- include('includes/nav'); %>
+<%- include('./includes/head') %> <%- include('./includes/nav') %>
+
 <div class="container">
 	<div class="row">
 		<div class="col-lg-2"></div>
@@ -7,15 +7,16 @@
 		<div class="col-lg-8 my-3">
 			<h1 class="text-center">Agenda</h1>
 			<p class="text-center lead">Seus contatos estão abaixo</p>
+
 			<%- include('includes/messages'); %>
 
 			<div class="responsive-table">
 				<table class="table my-3">
 					<tr>
-						<td>Contato</td>
-						<td>Sobrenome</td>
-						<td>Telefone</td>
-						<td>E-mail</td>
+						<td>Leonardo</td>
+						<td>Santos</td>
+						<td>32999447711</td>
+						<td>leonardojosantos@gmail.com</td>
 					</tr>
 				</table>
 			</div>
@@ -24,4 +25,5 @@
 		<div class="col-lg-2"></div>
 	</div>
 </div>
-<%- include('includes/footer'); %>
+
+<%- include('./includes/footer') %>

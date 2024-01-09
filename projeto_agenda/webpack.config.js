@@ -4,7 +4,7 @@ module.exports = {
     entry: './frontend/main.js',
     output: {
         path: path.resolve(__dirname, 'public', 'assets', 'js'),
-        filename: 'bundle.js',
+        filename: 'bunble.js',
     },
     module: {
         rules: [

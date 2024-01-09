@@ -1,3 +1,4 @@
-exports.index = (request, response) => {
-    response.render('index');
+//
+exports.index = (req, res) => {
+    res.render('index');
 };

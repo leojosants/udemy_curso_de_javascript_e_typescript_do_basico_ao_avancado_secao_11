@@ -1,27 +1,33 @@
-exports.middlewareGlobal = (request, response, next) => {
-    response.locals.errors = request.flash('errors');
-    response.locals.success = request.flash('success');
-    response.locals.user = request.session.user;
+exports.middlewareGlobal = (req, res, next) => {
+    res.locals.errors = req.flash('errors');
+    res.locals.success = req.flash('success');
+    res.locals.user = req.session.user;
     next();
 };
 
-exports.checkCSRFerror = (error, request, response, next) => {
-    if (error) {
-        return response.render('page404');
+exports.outroMiddleware = (req, res, next) => {
+    next();
+};
+
+exports.checkCsrfError = (err, req, res, next) => {
+    if (err) {
+        return res.render('404');
     }
+
     next();
 };
 
-exports.csrfMiddleware = (request, response, next) => { 
-    response.locals.csrfToken = request.csrfToken();
+exports.csrfMiddleware = (req, res, next) => {
+    res.locals.csrfToken = req.csrfToken();
     next();
 };
 
-exports.loginRequired = (request, response, next) => { 
-    if (!request.session.user) {
-        request.flash('errors', 'Você precisa fazer login.');
-        request.session.save(() => response.redirect('/'));
+exports.loginRequire = (req, res, next) => {
+    if (!req.session.user) {
+        req.flash('errors', 'Você precisa fazer login!');
+        req.session.save(() => res.redirect('/'));
         return;
     }
+
     next();
 };
