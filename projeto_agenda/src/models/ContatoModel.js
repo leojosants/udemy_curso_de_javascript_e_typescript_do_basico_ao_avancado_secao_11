@@ -8,20 +8,20 @@ const ContatoSchema = new mongoose.Schema({
     },
     sobrenome: {
         type: String,
-        require: false, 
+        require: false,
         default: '',
     },
-    email: { 
-        type: String, 
-        require: false, 
+    email: {
+        type: String,
+        require: false,
         default: '',
     },
-    telefone: { 
-        type: String, 
-        require: false, 
+    telefone: {
+        type: String,
+        require: false,
         default: '',
     },
-    criadoEm: { 
+    criadoEm: {
         type: Date,
         default: Date.now,
     },
@@ -64,7 +64,7 @@ Contato.prototype.cleanUp = function () {
     };
 }
 
-Contato.prototype.edit = async function (id) { 
+Contato.prototype.edit = async function (id) {
     if (typeof id !== 'string') return;
     this.valida();
     if (this.errors.length > 0) return;
@@ -85,7 +85,7 @@ Contato.buscaContatos = async function () {
 
 Contato.delete = async function (id) {
     if (typeof id !== 'string') return;
-    const contato = await ContatoModel.findOneAndDelete(id);
+    const contato = await ContatoModel.findOneAndDelete({ _id: id });
     return contato;
 };
 
