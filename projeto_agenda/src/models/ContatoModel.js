@@ -1,13 +1,30 @@
-// 
 const mongoose = require('mongoose');
 const validator = require('validator');
 
 const ContatoSchema = new mongoose.Schema({
-    nome: { type: String, require: true },
-    sobrenome: { type: String, require: false, default: '' },
-    email: { type: String, require: false, default: '' },
-    telefone: { type: String, require: false, default: '' },
-    criadoEm: { type: Date, default: Date.now }
+    nome: {
+        type: String,
+        require: true,
+    },
+    sobrenome: {
+        type: String,
+        require: false, 
+        default: '',
+    },
+    email: { 
+        type: String, 
+        require: false, 
+        default: '',
+    },
+    telefone: { 
+        type: String, 
+        require: false, 
+        default: '',
+    },
+    criadoEm: { 
+        type: Date,
+        default: Date.now,
+    },
 });
 
 const ContatoModel = mongoose.model('Contato', ContatoSchema);
@@ -17,12 +34,6 @@ function Contato(body) {
     this.errors = [];
     this.contato = null;
 }
-
-Contato.buscaPorId = async function (id) {
-    if (typeof id !== 'string') return;
-    const user = await ContatoModel.findById(id);
-    return user;
-};
 
 Contato.prototype.register = async function () {
     this.valida();
@@ -58,6 +69,24 @@ Contato.prototype.edit = async function (id) {
     this.valida();
     if (this.errors.length > 0) return;
     this.contato = await ContatoModel.findByIdAndUpdate(id, this.body, { new: true });
+};
+
+// metodos estaticos
+Contato.buscaPorId = async function (id) {
+    if (typeof id !== 'string') return;
+    const contato = await ContatoModel.findById(id);
+    return contato;
+};
+
+Contato.buscaContatos = async function () {
+    const contatos = await ContatoModel.find().sort({ criadoEm: -1 });
+    return contatos;
+};
+
+Contato.delete = async function (id) {
+    if (typeof id !== 'string') return;
+    const contato = await ContatoModel.findOneAndDelete(id);
+    return contato;
 };
 
 module.exports = Contato;
